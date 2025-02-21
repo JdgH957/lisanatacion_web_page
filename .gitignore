@@ -1,0 +1,10 @@
+/venv
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+doc_reader.log
+*.pyc
+*.pyo
+*.pyd
