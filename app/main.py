@@ -11,8 +11,13 @@ Attributes:
     openai.api_version (str): Version of the OpenAI API being used.
     openai.api_key (str): API key for accessing the OpenAI API.
 """
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware    # To delete after implement proper frontend
+from pathlib import Path
+from fastapi import FastAPI, Request
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
+from fastapi.responses import HTMLResponse
+from starlette.responses import Response
 from app.api.endpoints import ROUTER
 from app.core.error_handlers import register_exception_handlers
 
@@ -34,3 +39,19 @@ register_exception_handlers(app)
 
 # Include the router in the application
 app.include_router(ROUTER)
+
+app.mount(
+    "/static",
+    StaticFiles(
+        directory = Path(__file__).parent.parent.absolute() /
+        "app/templates/static"
+        ),
+    name = "static",
+    )
+
+
+templates = Jinja2Templates(directory = "app/templates")
+
+@app.get("/", response_class = HTMLResponse)    # type: ignore
+def index(request: Request) -> Response:
+    return templates.TemplateResponse("index.html", {"request": request})
