@@ -29,7 +29,38 @@ Se recomienda utilizar **Visual Studio Code** como entorno de desarrollo.
    ```sh
    pip install -r requirements.txt
    ```
-
+7. Para conectarte a PostgreSQL, instala psycopg2 y SQLAlchemy:
+   ```sh
+   pip install psycopg2-binary sqlalchemy
+   ```
+8. Instalar docker desktop 
+   ```sh
+   Elegir la opcion Use recommended settings
+   ```
+9. Verificar instalacion
+   ```sh
+   docker --version
+   ```
+10. Probar contenedor de prueba
+   ```sh
+   docker run hello-world 
+   revisar respuesta en docker desktop
+   ```
+10. Levantar el Contenedor de PostgreSQL con Docker Compose
+   ```sh
+   Si ya tienes docker-compose.yml en el repo, solo ejecuta:
+   docker compose up -d
+   ```
+11. Crear las Tablas en la Base de Datos
+   ```sh
+   python create_db.py
+   SOLO SE CORRE LA PRIMERA VEZ NO REPETIR
+   ```
+12. Probar la Conexión a PostgreSQL
+   ```sh
+   python test_queries.py
+   ```
+   
 ## Ejecución de la aplicación
 Para iniciar la aplicación, ejecutar el siguiente comando:
 ```sh
