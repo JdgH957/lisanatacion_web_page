@@ -11,6 +11,7 @@ try:
         nombre="Danna Prada",
         contra="valenti7336",
         email="dannaprada@example.com",
+        
         fecha_asig=date.today(),  # Fecha actual
         rol="deportista"
     )
