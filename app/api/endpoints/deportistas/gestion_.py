@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
-from database import SessionLocal, engine
-from models import Usuario, Club
+from app.database import SessionLocal, engine
+from app.models.usuarios import Usuario, Club
 
 app = FastAPI()
 

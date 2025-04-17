@@ -1,5 +1,5 @@
-from database import SessionLocal
-from models import Usuario, Club
+from app.database import SessionLocal
+from app.models.usuarios import Usuario, Club
 
 # Crear sesión
 session = SessionLocal()

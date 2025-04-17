@@ -1,5 +1,5 @@
-from database import SessionLocal
-from models import Usuario
+from app.database import SessionLocal
+from app.models.usuarios import Usuario
 from datetime import date
 
 # Crear sesión
