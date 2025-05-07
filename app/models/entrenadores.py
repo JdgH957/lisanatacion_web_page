@@ -1,5 +1,6 @@
 from sqlalchemy import Column, Integer, String, Date
 from app.database import Base
+from sqlalchemy.orm import relationship
 
 class Entrenador(Base):
     __tablename__ = "entrenadores"
@@ -12,4 +13,5 @@ class Entrenador(Base):
     club_actual = Column(String, nullable=True)
     titulos = Column(String, nullable=True)  # podrías usar una tabla aparte para más detalle
     experiencia = Column(String, nullable=True)
-    
+    años_exp = Column(Integer, nullable=False)
+    club = relationship("Club", back_populates="entrenadores")

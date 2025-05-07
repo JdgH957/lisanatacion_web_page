@@ -9,6 +9,8 @@ class UsuarioBase(BaseModel):
     email: EmailStr
     fecha_asig: date
     rol: RolUsuarioEnum
+    contacto:int
+    edad:int
 
 
 class UsuarioCreate(UsuarioBase):
@@ -22,6 +24,9 @@ class UsuarioUpdate(BaseModel):
     fecha_asig: date | None = None
     rol: RolUsuarioEnum | None = None
     contra: Annotated[str, constr(min_length=8, max_length=50)] | None = None
+    contacto:int
+    edad:int
+
 
 
 # ✅ Esquema de respuesta (opcional)

@@ -35,7 +35,7 @@ Se recomienda utilizar **Visual Studio Code** como entorno de desarrollo.
    pip install psycopg2-binary sqlalchemy pydantic[email]
    ```
 2. Instalar docker desktop 
-   ```sh
+   ```sh    
    Elegir la opcion Use recommended settings
    ```
 3. Verificar instalacion
@@ -66,7 +66,14 @@ Se recomienda utilizar **Visual Studio Code** como entorno de desarrollo.
    ```sh
    pip install python-jose[cryptography] passlib[bcrypt] python-multipart
    ```
-
+9. modificar tablas 
+   ```sh
+   pip install alembic
+   ```
+10. como usar almebic
+   -correr alembic init alembic va a crear en la raiz el doc de alembic.ini y la carpeta alembic 
+   -alembic revision --autogenerate -m "agregar tablax o atributo x"
+   -correr alembic upgrade head y visualizar los cambios en Dbeaver
 
 ## Ejecución de la aplicación
 Para iniciar la aplicación, ejecutar el siguiente comando:
