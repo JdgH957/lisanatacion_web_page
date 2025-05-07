@@ -21,8 +21,14 @@ from starlette.responses import Response
 from app.api.endpoints import ROUTER
 from app.core.error_handlers import register_exception_handlers
 
+from fastapi import FastAPI, Depends, HTTPException
+from sqlalchemy.orm import Session
+from app.database import SessionLocal, engine
+from app.api.endpoints.usuarios import routes_usuarios  
+
 
 app = FastAPI()
+
 
 app.add_middleware(
     CORSMiddleware,

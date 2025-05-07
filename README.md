@@ -32,7 +32,7 @@ Se recomienda utilizar **Visual Studio Code** como entorno de desarrollo.
 ## Configuración de Base de datos
 1. Para conectarte a PostgreSQL, instala psycopg2 y SQLAlchemy:
    ```sh
-   pip install psycopg2-binary sqlalchemy
+   pip install psycopg2-binary sqlalchemy pydantic[email]
    ```
 2. Instalar docker desktop 
    ```sh
@@ -62,6 +62,11 @@ Se recomienda utilizar **Visual Studio Code** como entorno de desarrollo.
    python test_queries.py
    Si todo está bien, verás un mensaje con la lista de usuarios registrados.
    ```
+8. instalar depenencia
+   ```sh
+   pip install python-jose[cryptography] passlib[bcrypt] python-multipart
+   ```
+
 
 ## Ejecución de la aplicación
 Para iniciar la aplicación, ejecutar el siguiente comando:
