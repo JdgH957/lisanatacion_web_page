@@ -12,3 +12,4 @@ def ruta_admin(token: str = Depends(oauth2_scheme)):
     if not payload or payload.get("rol") != "admin":
         raise HTTPException(status_code=403, detail="No autorizado")
     return {"mensaje": "¡Hola Admin!"}
+

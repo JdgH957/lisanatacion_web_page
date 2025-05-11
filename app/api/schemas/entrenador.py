@@ -1,7 +1,13 @@
+from __future__ import annotations
 from pydantic import BaseModel, EmailStr, constr
 from datetime import date
-from typing import Annotated
-from api.schemas.club import ClubOut 
+from typing import Optional
+from .club import ClubOut
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from .club import ClubOut  # Solo para validación de tipos, no se ejecuta
+
 
 # ✅ Esquema base
 class EntrenadorBase(BaseModel):

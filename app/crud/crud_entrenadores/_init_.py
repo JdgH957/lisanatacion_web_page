@@ -1,5 +1,5 @@
-from .entrenador_crear import crear_usuario
+from .entrenador_crear import crear_entrenador
 from .entrenador_listar import listar_entrenadores
 from .entrenador_listar import obtener_entrenador_por_id
 from .entrenador_actualizar import actualizar_entrenador
-from .entrenador_eliminar import eliminar_enternador
+from .entrenador_eliminar import eliminar_entrenador
