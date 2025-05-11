@@ -30,11 +30,10 @@ class EntrenadorUpdate(BaseModel):
     apellido: str | None = None
     email: EmailStr | None = None
     fecha_asig: date | None = None
-    club_actual: str | None = None
     titulos: str | None = None
     experiencia: str | None = None
     años_exp: int | None = None
-
+    club_id: int 
 
 class EntrenadorOut(EntrenadorBase):
     id: int

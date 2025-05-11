@@ -17,7 +17,7 @@ class Usuario(Base):
     contra = Column(String, nullable=False)
     fecha_asig = Column(Date, nullable=False)
     rol = Column(Enum(RolUsuarioEnum), nullable=False)
-    contacto = Column(Integer, unique=True, nullable=True)
+    contacto = Column(String(20), unique=True, nullable=True)
     edad = Column(Integer, nullable=True)
 
 
