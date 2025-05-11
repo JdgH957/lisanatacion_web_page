@@ -1,8 +1,11 @@
-from pydantic import BaseModel, EmailStr, constr
+from __future__ import annotations
+from pydantic import BaseModel, EmailStr
 from datetime import date
-from typing import Annotated, List
-from api.schemas.entrenador import EntrenadorOut  # Asegúrate que la ruta es correcta
+from typing import Optional, List
+from typing import TYPE_CHECKING
 
+if TYPE_CHECKING:
+    from .entrenador import EntrenadorOut
 
 # ✅ Esquema base
 class ClubBase(BaseModel):
@@ -28,10 +31,10 @@ class ClubUpdate(BaseModel):
     experiencia: str | None = None
     años_exp: int
 
-    class ClubOut(ClubBase):
-        id: int
-        lider: EntrenadorOut | None = None  # Relación con líder
-        entrenadores: List[EntrenadorOut] = []  # Lista de entrenadores
+class ClubOut(ClubBase):
+    id: int
+    lider: EntrenadorOut | None = None  # Relación con líder
+    entrenadores: List[EntrenadorOut] = []  # Lista de entrenadores
 
-        class Config:
-            orm_mode = True
+    class Config:
+        orm_mode = True
