@@ -15,10 +15,10 @@ class EntrenadorBase(BaseModel):
     apellido: str
     email: EmailStr
     fecha_asig: date
-    club_actual: str | None = None
     titulos: str | None = None
     experiencia: str | None = None
     años_exp: int
+    club_id: int  
 
 # ✅ Crear entrenador
 class EntrenadorCreate(EntrenadorBase):

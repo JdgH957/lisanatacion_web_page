@@ -74,6 +74,8 @@ Se recomienda utilizar **Visual Studio Code** como entorno de desarrollo.
    -correr alembic init alembic va a crear en la raiz el doc de alembic.ini y la carpeta alembic 
    -alembic revision --autogenerate -m "agregar tablax o atributo x"
    -correr alembic upgrade head y visualizar los cambios en Dbeaver
+11. crear admin
+   -correr python -m app.scripts.init_admin para generar el admin de user admin@admin.com y contraseña admin123
 
 ## Ejecución de la aplicación
 Para iniciar la aplicación, ejecutar el siguiente comando:

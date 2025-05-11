@@ -21,6 +21,13 @@ from starlette.responses import Response
 from app.api.endpoints import ROUTER
 from app.core.error_handlers import register_exception_handlers
 
+from fastapi.security import OAuth2PasswordBearer
+from fastapi.openapi.models import OAuthFlows as OAuthFlowsModel
+from fastapi.openapi.models import SecuritySchemeType
+from fastapi.security import OAuth2
+from fastapi.openapi.utils import get_openapi
+
+
 from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app.database import SessionLocal, engine
