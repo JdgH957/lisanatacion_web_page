@@ -6,7 +6,7 @@ from app.database import get_db
 from app.models import Usuario
 from app.auth.auth import verify_password
 from app.auth.jwt import crear_token
-from api.schemas.usuario import UsuarioOut
+from app.api.schemas.usuario import UsuarioOut
 
 
 router = APIRouter()
@@ -18,4 +18,13 @@ def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depend
         raise HTTPException(status_code=401, detail="Credenciales inválidas")
 
     token = crear_token({"sub": usuario.email, "rol": usuario.rol})
-    return {"access_token": token, "token_type": "bearer","usuario": UsuarioOut.from_orm(usuario)}
+    return {"access_token": token, "token_type": "bearer","usuario": {
+            "id": usuario.id,
+            "nombre": usuario.nombre,
+            "apellido":usuario.apellido,
+            "fecha_asig":usuario.fecha_asig,
+            "email": usuario.email,
+            "rol": usuario.rol,
+            "contacto":usuario.contacto,
+            "edad":usuario.edad
+        }}
