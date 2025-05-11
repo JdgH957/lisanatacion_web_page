@@ -16,4 +16,4 @@ class Entrenador(Base):
     experiencia = Column(String, nullable=True)
     años_exp = Column(Integer, nullable=False)
     club_id = Column(Integer, ForeignKey("clubes.id"))
-    club = relationship("Club", back_populates="entrenadores")
+    club = relationship("Club", back_populates="entrenadores", foreign_keys=[club_id])
