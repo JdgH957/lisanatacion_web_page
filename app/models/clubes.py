@@ -1,6 +1,7 @@
 from sqlalchemy import Column, ForeignKey, Integer, String, Date
 from app.database import Base
 from sqlalchemy.orm import relationship
+from sqlalchemy.orm import mapped_column
 
 class Club(Base):
     __tablename__ = "clubes"
@@ -11,6 +12,5 @@ class Club(Base):
     lider_id = Column(Integer, ForeignKey("entrenadores.id"), nullable=False)
     email = Column(String, nullable=False)
 
-    lider = relationship("Entrenador", foreign_keys=[lider_id])
-    entrenadores = relationship("Entrenador", back_populates="club", foreign_keys="[Entrenador.club_id]")
-
+    lider = relationship("Entrenador", foreign_keys=(lider_id))
+    entrenadores = relationship("Entrenador", back_populates="club")

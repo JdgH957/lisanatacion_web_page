@@ -11,11 +11,11 @@ if TYPE_CHECKING:
 class ClubBase(BaseModel):
     nombre_club: str
     fecha_creacion: date
-    lider_id: int
     email: EmailStr
     titulos: str | None = None
     experiencia: str | None = None
     años_exp: int
+    entrenadores_ids: List[int]  # al menos uno
 
 # ✅ Crear entrenador
 class ClubCreate(ClubBase):
@@ -25,15 +25,14 @@ class ClubCreate(ClubBase):
 class ClubUpdate(BaseModel):
     nombre_club: str
     fecha_creacion: date
-    lider_id: int
     email: EmailStr
     titulos: str | None = None
     experiencia: str | None = None
     años_exp: int
+    entrenadores_ids: List[int]
 
 class ClubOut(ClubBase):
     id: int
-    lider: EntrenadorOut | None = None  # Relación con líder
     entrenadores: List[EntrenadorOut] = []  # Lista de entrenadores
 
     class Config:
