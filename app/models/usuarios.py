@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Date, Enum
+from sqlalchemy import Column, Integer, String, Date, Enum, BigInteger
 from app.database import Base
 import enum
 
@@ -17,7 +17,7 @@ class Usuario(Base):
     contra = Column(String, nullable=False)
     fecha_asig = Column(Date, nullable=False)
     rol = Column(Enum(RolUsuarioEnum), nullable=False)
-    contacto = Column(Integer, unique=True, nullable=True)
+    contacto = Column(BigInteger, unique=True, nullable=True)
     edad = Column(Integer, nullable=True)
 
 

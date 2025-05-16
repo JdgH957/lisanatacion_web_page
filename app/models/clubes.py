@@ -12,4 +12,8 @@ class Club(Base):
     email = Column(String, nullable=False)
 
     lider = relationship("Entrenador", foreign_keys=(lider_id))
-    entrenadores = relationship("Entrenador", back_populates="club")
+    entrenadores = relationship(
+        "Entrenador",
+        back_populates="club",
+        foreign_keys="[Entrenador.club_id]"
+    )
