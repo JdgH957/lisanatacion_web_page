@@ -18,10 +18,7 @@ if config.config_file_name is not None:
 # for 'autogenerate' support
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
-from app.database import Base  # Tu declarative_base()
-from app.models import usuarios, entrenadores, clubes  # Importa todos los modelos aquí
-target_metadata = Base.metadata
-
+target_metadata = None
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:

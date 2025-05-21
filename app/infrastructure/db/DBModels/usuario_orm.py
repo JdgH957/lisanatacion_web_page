@@ -7,7 +7,7 @@ class RolUsuarioEnum(str, enum.Enum):
     entrenador = "entrenador"
     club = "club"
 
-class Usuario(Base):
+class UsuarioORM(Base):
     __tablename__ = "usuarios"
 
     id = Column(Integer, primary_key=True, index=True)

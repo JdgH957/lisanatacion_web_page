@@ -2,7 +2,7 @@ from sqlalchemy import Column, ForeignKey, Integer, String, Date
 from app.database import Base
 from sqlalchemy.orm import relationship
 
-class Club(Base):
+class ClubORM(Base):
     __tablename__ = "clubes"
 
     id = Column(Integer, primary_key=True, index=True)

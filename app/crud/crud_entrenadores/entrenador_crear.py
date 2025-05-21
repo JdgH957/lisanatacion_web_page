@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 from fastapi import HTTPException
-from app.models.entrenadores import Entrenador
+from app.infrastructure.db.DBModels.entrenador_orm import Entrenador
 from app.auth import hash_password
 from app.api.schemas import EntrenadorCreate
 

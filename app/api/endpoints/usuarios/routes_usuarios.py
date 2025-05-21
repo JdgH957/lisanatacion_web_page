@@ -3,17 +3,18 @@ from sqlalchemy.orm import Session
 from app.database import get_db
 from app.api.schemas.usuario import UsuarioCreate, UsuarioUpdate
 from app.crud import crud_usuarios
-from app.dependencies.admin import get_current_admin  
+from app.config.dependencies.admin import get_current_admin  
+
+
+from app.application.DTOS.usuario_dto import UsuarioCreateDTO, UsuarioOutDTO
+from app.config.dependencies import get_usuario_service
+
 
 router = APIRouter(prefix="/usuarios", tags=["Usuarios"])
 
-@router.post("/", summary="Crear nuevo usuario (solo admin)")
-def crear_usuario(
-    usuario: UsuarioCreate,
-    db: Session = Depends(get_db),
-    admin_user: dict = Depends(get_current_admin)  
-):
-    return crud_usuarios.crear_usuario(usuario, db)
+@router.post("/usuarios", response_model=UsuarioOutDTO)
+def crear_usuario(usuario: UsuarioCreateDTO, usuario_service=Depends(get_usuario_service)):
+    return usuario_service.crear_usuario(usuario)
 
 @router.get("/", summary="Listar todos los usuarios (solo admin)")
 def listar_usuarios(

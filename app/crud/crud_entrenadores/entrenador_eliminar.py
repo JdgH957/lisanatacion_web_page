@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 from fastapi import HTTPException
-from app.models.entrenadores import Entrenador
+from app.infrastructure.db.DBModels.entrenador_orm import Entrenador
 
 def eliminar_entrenador(entrenador_id: int, db: Session):
     entrenador = db.query(Entrenador).filter(Entrenador.id == entrenador_id).first()

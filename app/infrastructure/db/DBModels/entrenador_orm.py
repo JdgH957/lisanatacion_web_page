@@ -4,7 +4,7 @@ from sqlalchemy.orm import relationship
 from sqlalchemy import ForeignKey
 
 
-class Entrenador(Base):
+class EntrenadorORM(Base):
     __tablename__ = "entrenadores"
 
     id = Column(Integer, primary_key=True, index=True)

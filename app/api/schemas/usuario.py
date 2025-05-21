@@ -1,6 +1,6 @@
 from pydantic import BaseModel, EmailStr, constr
 from datetime import date
-from app.models.usuarios import RolUsuarioEnum
+from app.infrastructure.db.DBModels.usuario_orm import RolUsuarioEnum
 from typing import Annotated 
 
 class UsuarioBase(BaseModel):
