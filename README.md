@@ -19,11 +19,13 @@ Se recomienda utilizar **Visual Studio Code** como entorno de desarrollo.
 3. Abrir una terminal dentro de **VS Code**.
 4. Crear un entorno virtual ejecutando el siguiente comando:
    ```sh
-   python3 -m venv venv
+   python -m venv venv
    ```
 5. Activar el entorno virtual:
    ```sh
    .\venv\Scripts\activate
+   .\venv\Scripts\Activate '''alguno de esos dos'''
+
    ```
 6. Instalar las dependencias del proyecto:
    ```sh
@@ -42,11 +44,7 @@ Se recomienda utilizar **Visual Studio Code** como entorno de desarrollo.
    ```sh
    docker --version
    ```
-4. Probar contenedor de prueba
-   ```sh
-   docker run hello-world 
-   revisar respuesta en docker desktop
-   ```
+
 5. Levantar el Contenedor de PostgreSQL con Docker Compose
    ```sh
    Si ya tienes docker-compose.yml en el repo, solo ejecuta:
@@ -54,13 +52,9 @@ Se recomienda utilizar **Visual Studio Code** como entorno de desarrollo.
    ```
 6. Crear las Tablas en la Base de Datos
    ```sh
-   python create_db.py
-   SOLO SE CORRE LA PRIMERA VEZ NO REPETIR
-   ```
-7. Probar la Conexión a PostgreSQL
-   ```sh
-   python test_queries.py
-   Si todo está bien, verás un mensaje con la lista de usuarios registrados.
+   python setDB.py
+   RECOMENDABLE CORRER ESTE COMANDO CUANDO LA BASE DE DATOS DE ERRORES
+   O SE DEBA ACTUALIZAR
    ```
 8. instalar depenencia
    ```sh
@@ -72,10 +66,10 @@ Se recomienda utilizar **Visual Studio Code** como entorno de desarrollo.
    ```
 10. como usar almebic
    -correr alembic init alembic va a crear en la raiz el doc de alembic.ini y la carpeta alembic 
-   -alembic revision --autogenerate -m "agregar tablax o atributo x"
-   -correr alembic upgrade head y visualizar los cambios en Dbeaver
-11. crear admin
-   -correr python -m app.scripts.init_admin para generar el admin de user admin@admin.com y contraseña admin123
+   -EN LA CARPETA ALEMBIC/VERSIONS/ ESTARAN LOS CAMBIOS QUE SE VAN HACIENDO SI CREAS
+   UNA NUEVA TABLA O UN ATRIBUTO ETC TIENES QUE HACER: alembic revision --autogenerate -m "NUEVO CAMBIO"
+   -correr alembic upgrade head Y VISUALIZAR LOS CAMBIOS, ES IDEA SIEMPRE REVISAR QUE ESTEMOS EN LA BASE ACTUALIZADA
+
 
 ## Ejecución de la aplicación
 Para iniciar la aplicación, ejecutar el siguiente comando:

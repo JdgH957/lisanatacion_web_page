@@ -2,7 +2,6 @@ from sqlalchemy.orm import Session
 from app.Domain.Irepos.Ientrenador_repo import IEntrenadorRepository
 from app.Domain.models.entrenador import Entrenador
 from app.infrastructure.db.DBModels.entrenador_orm import EntrenadorORM
-from app.application.DTOS.entrenador_dto import EntrenadorCreateDTO
 from app.Domain.mappers.entrenador_mapper import orm_a_dominio
 
 

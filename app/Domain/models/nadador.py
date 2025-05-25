@@ -1,9 +1,10 @@
 
 
 class Nadador:
-    def __init__(self, nombre, apellido, edad, peso, categorias: list[str], disciplinas: list[str], id_entrenador=None, id_club=None, imagen=None):
+    def __init__(self, nombre, apellido,email, edad, peso, categorias: list[str], disciplinas: list[str], id_entrenador=None, id_club=None, imagen=None):
         self.nombre = nombre
         self.apellido = apellido
+        self.email = email
         self.edad = edad
         self.peso = peso
         self.rol = "Nadador"

@@ -20,7 +20,7 @@ def get_usuarios(usuario_service: UsuarioService = Depends(get_usuario_service))
 def get_usuario(usuario_id: int, usuario_service: UsuarioService = Depends(get_usuario_service)):
     return usuario_service.get_usuario_by_id(usuario_id)
 
-@router.post("/eliminar/{usuario_id}", summary = "Elimina el usuario por ID")
+@router.delete("/eliminar/{usuario_id}", summary = "Elimina el usuario por ID")
 def eliminar_usuario(usuario_id: int, usuario_service: UsuarioService = Depends(get_usuario_service)):
     return usuario_service.eliminar_usuario(usuario_id)
 

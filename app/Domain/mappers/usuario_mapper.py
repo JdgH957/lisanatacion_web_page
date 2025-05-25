@@ -1,6 +1,6 @@
 from app.Domain.models.usuario import Usuario, RolUsuario
 from app.infrastructure.db.DBModels.usuario_orm import UsuarioORM
-from app.application.DTOS.usuario_dto import UsuarioCreateDTO, UsuarioOutDTO
+from app.application.DTOS.usuario_dto import UsuarioCreateDTO, UsuarioOutDTO, UsuarioUpdateDTO
 from app.infrastructure.db.DBModels.usuario_orm import RolUsuarioEnum
 
 def rol_dominio_a_orm(rol: RolUsuario) -> RolUsuarioEnum:
@@ -67,12 +67,28 @@ def dto_create_a_dominio(dto: UsuarioCreateDTO) -> Usuario:
         edad=dto.edad
     )
 
-def dominio_a_dto_out(usuario: Usuario, usuario_id: int) -> UsuarioOutDTO:
+def dominio_a_dto_out(usuario: Usuario) -> UsuarioOutDTO:
     rol_str = rol_dominio_a_str(usuario.rol)
     return UsuarioOutDTO(
-        id=usuario_id,
         nombre=usuario.nombre,
         apellido=usuario.apellido,
         email=usuario.email,
         rol=rol_str
     )
+
+def actualizar_usuario_con_dto(usuario: Usuario, dto: UsuarioUpdateDTO) -> Usuario:
+    if dto.nombre is not None:
+        usuario.nombre = dto.nombre
+    if dto.apellido is not None:
+        usuario.apellido = dto.apellido
+    if dto.email is not None:
+        usuario.email = dto.email
+    if dto.fecha_asig is not None:
+        usuario.fecha_asig = dto.fecha_asig
+    if dto.rol is not None:
+        usuario.rol = dto.rol
+    if dto.contacto is not None:
+        usuario.contacto = dto.contacto
+    if dto.edad is not None:
+        usuario.edad = dto.edad
+    return usuario

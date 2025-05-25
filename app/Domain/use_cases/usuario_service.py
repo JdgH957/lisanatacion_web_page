@@ -1,11 +1,10 @@
 from http.client import HTTPException
 from typing import List
-from app.Domain.models.usuario import Usuario
 from app.application.Interfaces.Iusuario_service import IUsuarioService
 from app.application.DTOS.usuario_dto import UsuarioCreateDTO, UsuarioOutDTO, UsuarioUpdateDTO
 from app.Domain.Irepos.Iusuario_repo import IUsuarioRepository
 from app.core.auth.auth import hash_password
-from app.Domain.mappers.usuario_mapper import dominio_a_dto_out, dominio_a_orm, dto_create_a_dominio, dto_update_a_dominio
+from app.Domain.mappers.usuario_mapper import actualizar_usuario_con_dto,dto_create_a_dominio
 
 
 class UsuarioService(IUsuarioService):
@@ -19,19 +18,19 @@ class UsuarioService(IUsuarioService):
             raise ValueError("El email ya está registrado")
 
         usuario.contra = hash_password(usuario.contra)
-        usuario_creado, usuario_id = self.usuario_repo.crear_usuario(usuario)
+        usuario_creado= self.usuario_repo.crear_usuario(usuario)
 
-        return dominio_a_dto_out(usuario_creado, usuario_id)
+        return UsuarioOutDTO.model_validate(usuario_creado.__dict__)
     
     def get_usuarios(self) -> List[UsuarioOutDTO]:
         usuarios = self.usuario_repo.get_usuarios()
-        return [dominio_a_dto_out(u) for u in usuarios]
+        return [UsuarioOutDTO.model_validate(u.__dict__) for u in usuarios]
     
     def get_usuario_by_id(self, usuario_id: int) -> UsuarioOutDTO:
         usuario = self.usuario_repo.get_usuario_by_id(usuario_id)
         if not usuario:
             raise HTTPException(status_code=404, detail="Usuario no encontrado")
-        return dominio_a_dto_out(usuario)
+        return UsuarioOutDTO.model_validate(usuario.__dict__)
     
     def eliminar_usuario(self, usuario_id: int) -> None:
         usuario = self.usuario_repo.get_usuario_by_id(usuario_id)
@@ -43,15 +42,6 @@ class UsuarioService(IUsuarioService):
         usuario_existente = self.usuario_repo.get_usuario_by_id(usuario_id)
         if not usuario_existente:
             raise HTTPException(status_code=404, detail="Usuario no encontrado")
-
-        # Creamos un nuevo usuario a partir del existente
-        usuario_actualizado = Usuario(
-            nombre=usuario_dto.nombre or usuario_existente.nombre,
-            apellido=usuario_dto.apellido or usuario_existente.apellido,
-            email=usuario_dto.email or usuario_existente.email,
-            contra=hash_password(usuario_dto.contra) if usuario_dto.contra else usuario_existente.contra,
-            rol=usuario_existente.rol,  # suponiendo que el rol no cambia
-        )
-
-        usuario_final = self.usuario_repo.actualizar_usuario(usuario_id, usuario_actualizado)
-        return dominio_a_dto_out(usuario_final)
+        usuario_actualizado = actualizar_usuario_con_dto(usuario_existente, usuario_dto)
+        usuario_actualizado = self.usuario_repo.actualizar_usuario(usuario_id, usuario_actualizado)
+        return UsuarioOutDTO.model_validate(usuario_actualizado.__dict__)

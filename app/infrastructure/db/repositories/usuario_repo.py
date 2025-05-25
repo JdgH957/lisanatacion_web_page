@@ -1,8 +1,8 @@
 from sqlalchemy.orm import Session
-from typing import List, Optional
 from app.Domain.models.usuario import Usuario
 from app.infrastructure.db.DBModels.usuario_orm import UsuarioORM
 from app.Domain.Irepos.Iusuario_repo import IUsuarioRepository
+from typing import List, Optional
 from app.Domain.mappers.usuario_mapper import orm_a_dominio
 
 
@@ -14,7 +14,7 @@ class UsuarioRepository(IUsuarioRepository):
     def existe_email(self, email: str) -> bool:
         return self.db.query(UsuarioORM).filter(UsuarioORM.email == email).first() is not None
 
-    def crear_usuario(self, usuario: Usuario):
+    def crear_usuario(self, usuario: Usuario) ->  Usuario:
         usuario_db = UsuarioORM(
             nombre=usuario.nombre,
             apellido=usuario.apellido,
@@ -28,7 +28,7 @@ class UsuarioRepository(IUsuarioRepository):
         self.db.add(usuario_db)
         self.db.commit()
         self.db.refresh(usuario_db)
-        return orm_a_dominio(usuario_db), usuario_db.id
+        return orm_a_dominio(usuario_db)
     
     def get_usuarios(self) -> List[Usuario]:
         usuario_orm = self.db.query(UsuarioORM).all()

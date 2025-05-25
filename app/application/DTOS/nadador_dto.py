@@ -1,7 +1,6 @@
 from typing import List, Optional
 from pydantic import BaseModel, EmailStr
 from app.application.common.enums import Disciplinas, Categorias
-from app.application.DTOS.nadador_dto import NadadorOutDTO  # Asegúrate de tener este DTO bien definido
 
 class NadadorCreateDTO(BaseModel):
     nombre: str

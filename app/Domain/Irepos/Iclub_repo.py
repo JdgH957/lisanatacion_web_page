@@ -9,7 +9,7 @@ class IclubRepository(ABC):
         pass
 
     @abstractmethod
-    def get_clubes(self, club_id: int) -> list[Club]:
+    def get_clubes(self) -> list[Club]:
         pass
 
     @abstractmethod

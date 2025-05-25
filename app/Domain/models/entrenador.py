@@ -1,5 +1,3 @@
-from app.Domain.models.nadador import Nadador
-
 
 class Entrenador:
     def __init__(self,nombre, apellido, email, contacto, edad, categorias: list[str], disciplinas: list[str], id_club=None, experiencia=None, imagen=None, nadadores=None):

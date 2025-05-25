@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
-from typing import List, Optional
+from typing import List
 from app.Domain.models.entrenador import Entrenador
+
 class IEntrenadorRepository(ABC):
 
     @abstractmethod

@@ -14,17 +14,16 @@ class UsuarioCreateDTO(BaseModel):
     edad: int
 
 class UsuarioUpdateDTO(BaseModel):
-    nombre: Optional[str]
-    apellido: Optional[str]
-    email: Optional[EmailStr]
-    contra: Optional[str]
-    fecha_asig: Optional[date]
-    rol: Optional[RolUsuario]
-    contacto: Optional[str]
-    edad: Optional[int]
-
+    nombre: Optional[str] = None
+    apellido: Optional[str] = None
+    email: Optional[str] = None
+    contra: Optional[str] = None
+    fecha_asig: Optional[date] = None
+    rol: Optional[str] = None
+    contacto: Optional[str] = None
+    edad: Optional[int] = None
+    
 class UsuarioOutDTO(BaseModel):
-    id: int
     nombre: str
     apellido: str
     email: str

@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from app.Domain.models.nadador import Nadador
 
-class INadadorRepo(ABC):
+class INadadorRepository(ABC):
 
     @abstractmethod
     def crear_nadador(self, nadador: Nadador) -> Nadador:

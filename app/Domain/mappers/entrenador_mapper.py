@@ -16,7 +16,6 @@ def dto_a_dominio(dto: EntrenadorCreateDTO) -> Entrenador:
         id_club=dto.id_club,
         experiencia=dto.experiencia,
         imagen=dto.imagen,
-        rol="entrenador"  # Fijamos directamente el rol
     )
 
 
@@ -41,7 +40,6 @@ def orm_a_dominio(entrenador_orm: EntrenadorORM) -> Entrenador:
         nombre=entrenador_orm.nombre,
         apellido=entrenador_orm.apellido,
         email=entrenador_orm.email,
-        rol=entrenador_orm.rol,
         contacto=entrenador_orm.contacto,
         edad=entrenador_orm.edad,
         disciplinas=entrenador_orm.disciplinas,

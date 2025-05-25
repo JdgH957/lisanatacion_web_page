@@ -9,6 +9,8 @@ from fastapi import APIRouter
 from app.api.endpoints import test_endpoints
 from app.api.endpoints.usuarios import routes_usuarios
 from app.api.endpoints.entrenadores import routes_entrenadores
+from app.api.endpoints.clubes import routes_clubes
+from app.api.endpoints.nadadores import routes_nadadores
 from app.api.endpoints.admin import protegida
 from app.api.endpoints.usuarios import auth_routes
 # Create the router instance that will aggregate all the endpoint routers
@@ -19,6 +21,10 @@ ROUTER = APIRouter()
 ROUTER.include_router(routes_usuarios.router)
 
 ROUTER.include_router(routes_entrenadores.router)
+
+ROUTER.include_router(routes_clubes.router)
+
+ROUTER.include_router(routes_nadadores.router)
 
 ROUTER.include_router(protegida.router)
 
