@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from app.api.schemas.auth_schemas import LoginRequest
+from app.application.DTOS.auth_dto import LoginRequest
 from app.database import get_db
 from app.infrastructure.db.DBModels.usuario_orm import UsuarioORM
 from app.core.auth.auth import verify_password
