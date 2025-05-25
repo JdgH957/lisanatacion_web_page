@@ -1,10 +1,7 @@
-from pydantic import BaseModel
-from enum import Enum
+from typing import Optional
+from pydantic import BaseModel, EmailStr
+from app.application.common.enums import RolUsuario
 from datetime import date
-
-class RolUsuarioEnum(str, Enum):
-    ENTRENADOR = "entrenador"
-    CLUB = "club"
 
 class UsuarioCreateDTO(BaseModel):
     nombre: str
@@ -12,15 +9,25 @@ class UsuarioCreateDTO(BaseModel):
     email: str
     contra: str
     fecha_asig: date
-    rol: RolUsuarioEnum
+    rol: RolUsuario
     contacto: str
     edad: int
+
+class UsuarioUpdateDTO(BaseModel):
+    nombre: Optional[str]
+    apellido: Optional[str]
+    email: Optional[EmailStr]
+    contra: Optional[str]
+    fecha_asig: Optional[date]
+    rol: Optional[RolUsuario]
+    contacto: Optional[str]
+    edad: Optional[int]
 
 class UsuarioOutDTO(BaseModel):
     id: int
     nombre: str
     apellido: str
     email: str
-    rol: str
+    rol: RolUsuario
     class Config:
         orm_mode = True

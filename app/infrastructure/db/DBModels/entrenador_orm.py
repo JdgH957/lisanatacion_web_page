@@ -1,8 +1,6 @@
-from sqlalchemy import Column, Integer, String, Date
-from app.database import Base
+from sqlalchemy import Column, Integer, String, ForeignKey, JSON
 from sqlalchemy.orm import relationship
-from sqlalchemy import ForeignKey
-
+from app.database import Base
 
 class EntrenadorORM(Base):
     __tablename__ = "entrenadores"
@@ -10,10 +8,15 @@ class EntrenadorORM(Base):
     id = Column(Integer, primary_key=True, index=True)
     nombre = Column(String, nullable=False)
     apellido = Column(String, nullable=False)
-    email = Column(String, nullable=False)  # no es único, porque puede haber historial
-    fecha_asig = Column(Date, nullable=False)
-    titulos = Column(String, nullable=True)  # podrías usar una tabla aparte para más detalle
-    experiencia = Column(String, nullable=True)
-    años_exp = Column(Integer, nullable=False)
-    club_id = Column(Integer, ForeignKey("clubes.id"))
-    club = relationship("Club", back_populates="entrenadores", foreign_keys=[club_id])
+    email = Column(String, unique=True, nullable=False)
+    rol = Column(String, nullable=False) 
+    contacto = Column(String)
+    edad = Column(Integer)
+    disciplinas = Column(JSON, nullable=False)  
+    categorias = Column(JSON, nullable=False)   
+    experiencia = Column(String)
+    imagen = Column(String)
+    id_club = Column(Integer, ForeignKey("clubes.id"))
+
+    club = relationship("ClubORM", back_populates="entrenadores")
+    nadadores = relationship("NadadorORM", back_populates="entrenador")

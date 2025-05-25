@@ -1,52 +1,30 @@
-from fastapi import APIRouter, Depends, HTTPException
-from sqlalchemy.orm import Session
-from app.api.schemas.entrenador import EntrenadorCreate, EntrenadorUpdate
-from app.database import get_db
-from app.crud import crud_entrenadores
-from app.dependencies.admin import get_current_admin  
+from fastapi import APIRouter, Depends
+from app.application.DTOS.entrenador_dto import EntrenadorCreateDTO, EntrenadorOutDTO, EntrenadorUpdateDTO
+from app.Domain.use_cases.entrenador_service import EntrenadorService
+from app.config.dependencies.dependencies import get_entrenador_service
 
 router = APIRouter(prefix="/entrenadores", tags=["Entrenadores"])
 
-@router.post("/", summary="Crear nuevo entrenador (solo admin)")
-def crear_entrenador(
-    entrenador: EntrenadorCreate,
-    db: Session = Depends(get_db),
-    admin_user: dict = Depends(get_current_admin)  
-):
-    return crud_entrenadores.crear_entrenador(entrenador, db)
-
-@router.get("/", summary="Listar todos los entrenadores (solo admin)")
-def listar_entrenadores(
-    db: Session = Depends(get_db),
-    admin_user: dict = Depends(get_current_admin)
-):
-    return crud_entrenadores.listar_entrenadores(db)
-
-@router.get("/{entrenador_id}", summary="Obtener entrenador por ID (solo admin)")
-def obtener_entrenador(
-    entrenador_id: int,
-    db: Session = Depends(get_db),
-    admin_user: dict = Depends(get_current_admin)
-):
-    entrenador = crud_entrenadores.obtener_entrenador_por_id(entrenador_id, db)
-    if entrenador is None:
-        raise HTTPException(status_code=404, detail="Entrenador no encontrado")
-    return entrenador
-
-@router.put("/{entrenador_id}", summary="Actualizar enrtenador (solo admin)")
-def actualizar_entrenador(
-    entrenador_id: int,
-    entrenador: EntrenadorUpdate,
-    db: Session = Depends(get_db),
-    admin_user: dict = Depends(get_current_admin)
-):
-    return crud_entrenadores.actualizar_entrenador(entrenador_id, entrenador, db)
+@router.post("/crear", response_model=EntrenadorOutDTO, summary="Crear nuevo entrenador (solo admin)")
+def crear_entrenador(entrenador: EntrenadorCreateDTO, entrenador_service: EntrenadorService = Depends(get_entrenador_service)):
+    return entrenador_service.crear_entrenador(entrenador)
 
 
-@router.delete("/{entrenador_id}", summary="Eliminar entrenador (solo admin)")
-def eliminar_entrenador(
-    entrenador_id: int,
-    db: Session = Depends(get_db),
-    admin_user: dict = Depends(get_current_admin)
-):
-    return crud_entrenadores.eliminar_entrenador(entrenador_id, db)
+@router.get("/lista", response_model= list[EntrenadorOutDTO], summary="Listar todos los entrenadores (solo admin)")
+def listar_entrenadores(entrenador_service: EntrenadorService = Depends(get_entrenador_service)):
+    return entrenador_service.get_entrenadores()
+
+
+@router.get("/{entrenador_id}", response_model=EntrenadorOutDTO, summary="Obtener entrenador por ID (solo admin)")
+def obtener_entrenador(entrenador_id: int, entrenador_service: EntrenadorService = Depends(get_entrenador_service)):
+    return entrenador_service.get_entrenador_by_id(entrenador_id)
+
+
+@router.put("/actualizar/{entrenador_id}", response_model=EntrenadorOutDTO, summary="Actualizar entrenador (solo admin)")
+def actualizar_entrenador(entrenador_id: int, entrenador: EntrenadorUpdateDTO, entrenador_service: EntrenadorService = Depends(get_entrenador_service)):
+    return entrenador_service.actualizar_entrenador(entrenador_id, entrenador)
+
+
+@router.delete("/borrar/{entrenador_id}", summary="Eliminar entrenador (solo admin)")
+def eliminar_entrenador(entrenador_id: int, entrenador_service: EntrenadorService = Depends(get_entrenador_service)):
+    return entrenador_service.eliminar_entrenador(entrenador_id)

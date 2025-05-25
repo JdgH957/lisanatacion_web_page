@@ -1,16 +1,18 @@
-from sqlalchemy import Column, ForeignKey, Integer, String, Date
-from app.database import Base
+from sqlalchemy import Column, Integer, String, Date, Text
 from sqlalchemy.orm import relationship
+from sqlalchemy.sql import func
+from app.database import Base  
 
-class ClubORM(Base):
-    __tablename__ = "clubes"
+class Club(Base):
+    __tablename__ = "clubs"
 
     id = Column(Integer, primary_key=True, index=True)
-    nombre_club = Column(String, nullable=False)
-    fecha_creacion = Column(Date, nullable=False)
-    lider_id = Column(Integer, ForeignKey("entrenadores.id"), nullable=False)
-    email = Column(String, nullable=False)
+    nombre = Column(String, nullable=False)
+    descripcion = Column(Text, nullable=False)
+    fecha_fundacion = Column(String, nullable=False)  # Si es Date, cámbialo a Column(Date)
+    pais = Column(String, nullable=False)
+    ciudad = Column(String, nullable=False)
+    imagen = Column(String, nullable=True)
 
-    lider = relationship("Entrenador", foreign_keys=[lider_id])
-    entrenadores = relationship("Entrenador", back_populates="club", foreign_keys="[Entrenador.club_id]")
-
+    entrenadores = relationship("Entrenador", back_populates="club")
+    nadadores = relationship("Nadador", back_populates="club")

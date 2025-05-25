@@ -1,21 +1,20 @@
 from sqlalchemy.orm import Session
+from typing import List, Optional
+from app.Domain.models.usuario import Usuario
 from app.infrastructure.db.DBModels.usuario_orm import UsuarioORM
-from app.infrastructure.db.DBModels.entrenador_orm import EntrenadorORM
-from app.infrastructure.db.DBModels.club_orm import ClubORM
-from app.application.DTOS.usuario_dto import UsuarioCreateDTO
+from app.Domain.Irepos.Iusuario_repo import IUsuarioRepository
+from app.Domain.mappers.usuario_mapper import orm_a_dominio
 
-class IUsuarioRepository:
-    def existe_email(self, email: str) -> bool: ...
-    def crear_usuario(self, usuario: UsuarioCreateDTO): ...
 
 class UsuarioRepository(IUsuarioRepository):
+
     def __init__(self, db: Session):
         self.db = db
 
     def existe_email(self, email: str) -> bool:
         return self.db.query(UsuarioORM).filter(UsuarioORM.email == email).first() is not None
 
-    def crear_usuario(self, usuario: UsuarioCreateDTO):
+    def crear_usuario(self, usuario: Usuario):
         usuario_db = UsuarioORM(
             nombre=usuario.nombre,
             apellido=usuario.apellido,
@@ -29,21 +28,33 @@ class UsuarioRepository(IUsuarioRepository):
         self.db.add(usuario_db)
         self.db.commit()
         self.db.refresh(usuario_db)
+        return orm_a_dominio(usuario_db), usuario_db.id
+    
+    def get_usuarios(self) -> List[Usuario]:
+        usuario_orm = self.db.query(UsuarioORM).all()
+        return [orm_a_dominio(u) for u in usuario_orm]
 
-        if usuario.rol == "entrenador":
-            self.db.add(EntrenadorORM(
-                nombre=usuario.nombre,
-                apellido=usuario.apellido,
-                email=usuario.email,
-                fecha_asig=usuario.fecha_asig
-            ))
-        elif usuario.rol == "club":
-            if not usuario.fecha_asig:
-                raise ValueError("Se requiere fecha de creación para un club")
-            self.db.add(ClubORM(
-                nombre_club=usuario.nombre,
-                fecha_creacion=usuario.fecha_asig,
-                email=usuario.email
-            ))
+    def get_usuario_by_id(self, usuario_id: int) -> Optional[Usuario]:
+        usuario_orm = self.db.query(UsuarioORM).filter(UsuarioORM.id == usuario_id).first()
+        if not usuario_orm:
+            return None
+        return orm_a_dominio(usuario_orm)
+
+    def eliminar_usuario(self, usuario_id: int) -> None:
+        self.db.query(UsuarioORM).filter(UsuarioORM.id == usuario_id).delete()
         self.db.commit()
-        return usuario_db
+    
+    def actualizar_usuario(self, usuario_id: int, usuario: Usuario) -> Usuario:
+        usuario_orm = self.db.query(UsuarioORM).filter(UsuarioORM.id == usuario_id).first()
+        if not usuario_orm:
+            raise ValueError("Usuario no encontrado")
+
+        usuario_orm.nombre = usuario.nombre
+        usuario_orm.apellido = usuario.apellido
+        usuario_orm.email = usuario.email
+        usuario_orm.contra = usuario.contra
+        # Puedes añadir campos adicionales si los tienes
+
+        self.db.commit()
+        self.db.refresh(usuario_orm)
+        return orm_a_dominio(usuario_orm)
