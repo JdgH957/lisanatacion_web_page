@@ -1,30 +1,35 @@
-# app/auth/jwt.py
-from datetime import datetime, timedelta
-from jose import JWTError, jwt
+import time
+from typing import Dict, Literal, Union
+from jose import jwt, JWTError
+from app.core.config import SECRET_KEY, ALGORITHM, EXPIRATION_ACCESS_MINUTES, EXPIRATION_REFRESH_MINUTES
 
-SECRET_KEY = "tu_clave_secreta_super_segura"
-ALGORITHM = "HS256"
-EXPIRATION_MINUTES = 60
+def _sign_token(payload: dict, minutes_expire: int, token_type: Literal["ACCESS", "REFRESH"]) -> str:
+    expire_ts = int(time.time() + minutes_expire * 60)
+    payload.update({"expires": expire_ts, "type": token_type})
+    return jwt.encode(payload, SECRET_KEY, algorithm=ALGORITHM)
 
-def crear_token(data: dict):
-    # Asegurarse de que el token contiene la fecha de expiración
-    datos = data.copy()
-    expiracion = datetime.utcnow() + timedelta(minutes=EXPIRATION_MINUTES)
-    datos.update({"exp": expiracion})
-    token = jwt.encode(datos, SECRET_KEY, algorithm=ALGORITHM)
-    return token
+def sign_access_token(user_id: int, nombre: str, rol: str) -> str:
+    payload = {
+        "id": user_id,
+        "nombre": nombre,
+        "rol": rol
+    }
+    return _sign_token(payload, EXPIRATION_ACCESS_MINUTES, "ACCESS")
 
-def verificar_token(token: str):
+def sign_refresh_token(user_id: int) -> str:
+    payload = {
+        "id": user_id
+    }
+    return _sign_token(payload, EXPIRATION_REFRESH_MINUTES, "REFRESH")
+
+
+def decode_token(token: str, expected_type: Literal["ACCESS", "REFRESH"]) -> Union[Dict, None]:
     try:
-        # Decodificar el token usando la clave secreta y el algoritmo
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-
-        # Verificar si la clave 'exp' está presente y si el token ha expirado
-        if datetime.utcnow() > datetime.utcfromtimestamp(payload["exp"]):
-            raise JWTError("Token ha expirado")
-
-        # Si todo está bien, devolver el payload
+        if payload.get("type") != expected_type:
+            return None
+        if time.time() > float(payload.get("expires", 0)):
+            return None
         return payload
-
     except JWTError:
         return None
