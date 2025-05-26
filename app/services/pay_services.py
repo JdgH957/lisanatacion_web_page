@@ -15,7 +15,7 @@ load_dotenv()
 
 ACCESS_TOKEN = os.getenv("MP_ACCESS_TOKEN")
 FRONTEND_URL = os.getenv("FRONTEND_URL")
-BACKEND_URL = "https://3de1-186-144-112-247.ngrok-free.app"
+BACKEND_URL = "https://ff9f-200-16-117-134.ngrok-free.app"
 print(f"🔗 BACKEND_URL cargado: {BACKEND_URL}")
 sdk = mercadopago.SDK(ACCESS_TOKEN)
 
@@ -111,11 +111,11 @@ def crear_link_de_pago_reserva(data: ReservaHorariosCursoNuevoRequest, db: Sessi
 
 
 def procesar_postpago_curso(payment_id: str, external_reference: str, db: Session) -> str:
-    """result = sdk.payment().get(payment_id)
+    result = sdk.payment().get(payment_id)
     pago = result["response"]
 
     if pago["status"] != "approved":
-        return "fallido"""
+        return "fallido"
 
     try:
         # ✅ Decodificar correctamente el external_reference desde URL

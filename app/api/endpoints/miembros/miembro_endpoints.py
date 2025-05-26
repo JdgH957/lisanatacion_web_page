@@ -19,9 +19,9 @@ router = APIRouter(prefix="/miembros", tags=["Miembros"])
 def post_pago_miembro(request: Request, db: Session = Depends(get_db)):
     estado = request.query_params.get("estado")
     external_reference = request.query_params.get("external_reference")
-    """
+
     if estado != "success" or not external_reference:
-        return RedirectResponse(url="https://www.google.com?error=fallido")"""
+        return RedirectResponse(url="https://www.google.com?error=fallido")
 
     try:
         decoded = urllib.parse.unquote(external_reference)
