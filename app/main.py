@@ -68,3 +68,9 @@ templates = Jinja2Templates(directory = "app/templates")
 @app.get("/", response_class = HTMLResponse)    # type: ignore
 def index(request: Request) -> Response:
     return templates.TemplateResponse("index.html", {"request": request})
+
+
+@app.get("/debug")
+def debug_simple():
+    print("✅ Entró al endpoint más simple")
+    return {"mensaje": "Este endpoint funciona"}

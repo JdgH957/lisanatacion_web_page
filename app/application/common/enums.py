@@ -23,3 +23,26 @@ class Disciplinas(str, Enum):
     LIBRE = "libre"
     ESPALDA = "espalda"
     BRAZA = "braza"
+
+class DiaSemanaEnum(str, Enum):
+    lunes = "lunes"
+    martes = "martes"
+    miercoles = "miércoles"
+    jueves = "jueves"
+    viernes = "viernes"
+    sabado = "sábado"
+    domingo = "domingo"
+
+class MesEnum(str, Enum):
+    enero = "enero"
+    febrero = "febrero"
+    marzo = "marzo"
+    abril = "abril"
+    mayo = "mayo"
+    junio = "junio"
+    julio = "julio"
+    agosto = "agosto"
+    septiembre = "septiembre"
+    octubre = "octubre"
+    noviembre = "noviembre"
+    diciembre = "diciembre"

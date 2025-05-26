@@ -15,6 +15,9 @@ from app.api.endpoints.admin import protegida
 from app.api.endpoints.usuarios import auth_routes
 from app.api.endpoints.pay import pay_endpoints
 from app.api.endpoints.piscinas import piscinas_endpoints
+from app.api.endpoints.horarios import horarios_endpoints
+from app.api.endpoints.cursos import curso_endpoints
+from app.api.endpoints.miembros import miembro_endpoints
 # Create the router instance that will aggregate all the endpoint routers
 
 
@@ -35,6 +38,12 @@ ROUTER.include_router(auth_routes.router)
 ROUTER.include_router(pay_endpoints.router)
 
 ROUTER.include_router(piscinas_endpoints.router)
+
+ROUTER.include_router(horarios_endpoints.router)
+
+ROUTER.include_router(curso_endpoints.router)
+
+ROUTER.include_router(miembro_endpoints.router)
 
 # Ruta de test
 ROUTER.include_router(
