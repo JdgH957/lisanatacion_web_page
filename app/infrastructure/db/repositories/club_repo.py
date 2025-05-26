@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from app.Domain.mappers.entrenador_mapper import orm_a_dominio
+from app.Domain.mappers.club_mapper import orm_a_dominio
 from app.Domain.models.club import Club
 from app.Domain.Irepos.Iclub_repo import IclubRepository
 from app.infrastructure.db.DBModels.club_orm import ClubORM

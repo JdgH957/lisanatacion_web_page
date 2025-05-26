@@ -13,7 +13,6 @@ class EntrenadorRepository(IEntrenadorRepository):
             nombre=entrenador.nombre,
             apellido=entrenador.apellido,
             email=entrenador.email,
-            contra=entrenador.contra,
             rol=entrenador.rol,
             contacto=entrenador.contacto,
             edad=entrenador.edad,

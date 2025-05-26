@@ -19,19 +19,19 @@ class ClubService(IClubService):
             imagen=club_dto.imagen,
         )
         club = self.club_repo.crear_club(club)
-        return ClubOutDTO.model_validate(club)
+        return ClubOutDTO.model_validate(club.__dict__)
 
     def get_club_by_id(self, club_id: int) -> ClubOutDTO:
         club = self.club_repo.get_club_by_id(club_id)
-        return ClubOutDTO.model_validate(club)
+        return ClubOutDTO.model_validate(club.__dict__)
 
     def get_clubes(self) -> list[ClubOutDTO]:
         clubs = self.club_repo.get_clubes()
-        return [ClubOutDTO.model_validate(club) for club in clubs]
+        return [ClubOutDTO.model_validate(club.__dict__) for club in clubs]
 
-    def update_club(self, club_dto: ClubUpdateDTO) -> ClubOutDTO:
+    def actualizar_club(self, club_dto: ClubUpdateDTO) -> ClubOutDTO:
         club = self.club_repo.actualizar_club(club_dto)
-        return ClubOutDTO.model_validate(club)
+        return ClubOutDTO.model_validate(club.__dict__)
 
-    def delete_club(self, club_id: int) -> None:
+    def eliminar_club(self, club_id: int) -> None:
         self.club_repo.eliminar_club(club_id)
